@@ -120,7 +120,10 @@ lanistr/
         | -- meta_Office_Products.json.gz
 
           ......
-```
+
+#### NFL Dataset
+
+-   For the NFL dataset, please follow the instructions to obtain access. Once you have access, download the data and place it under the `./lanistr/data/NFL` directory.
 
 ## MIMIC-IV-v2.2
 
@@ -176,6 +179,28 @@ bash scripts/amazon_finetune_fashion.sh
 ```bash
 bash scripts/amazon_eval_beauty.sh
 bash scripts/amazon_eval_fashion.sh
+```
+
+## NFL Dataset
+
+Experiments on the NFL dataset start by first pretraining the model followed by finetuning on the labeled portion of the data. For both steps we have used 8xA100 with 40GB memory. For evaluation, we only use a single GPU. The following scripts run pretraining and fine-tuning experiments. Please make sure to run them from `./lanistr/` subdirectory.
+
+### Pre-training
+
+```bash
+bash scripts/nfl_pretrain.sh
+```
+
+### Fine-tuning
+
+```bash
+bash scripts/nfl_finetune.sh
+```
+
+### Evaluation
+
+```bash
+bash scripts/nfl_eval.sh
 ```
 
 ## FAQ

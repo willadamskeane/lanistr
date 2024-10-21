@@ -1,0 +1,8 @@
+LICENSE
+README.md
+setup.py
+lanistr.egg-info/PKG-INFO
+lanistr.egg-info/SOURCES.txt
+lanistr.egg-info/dependency_links.txt
+lanistr.egg-info/requires.txt
+lanistr.egg-info/top_level.txt
