@@ -25,6 +25,7 @@ import warnings
 
 from dataset.amazon.load_data import load_amazon
 from dataset.mimic_iv.load_data import load_mimic
+from dataset.nfl.load_data import load_nfl
 import numpy as np
 import omegaconf
 import torch
@@ -113,6 +114,8 @@ def main_worker(args: omegaconf.DictConfig) -> None:
     load_dataset = load_mimic
   elif args.dataset_name == "amazon":
     load_dataset = load_amazon
+  elif args.dataset_name == "nfl":
+    load_dataset = load_nfl
   else:
     raise NotImplementedError(f"{args.dataset_name} not implemented.")
 

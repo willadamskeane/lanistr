@@ -1,0 +1,116 @@
+seed: 2024
+
+# number of samples in training data to randomly subsample if greater than 0
+sub_samples: 0
+
+do_train: true
+do_test: false
+
+dataset_name: nfl
+task: pretrain
+
+# modalities presence
+image: false
+text: true
+tab: true
+time: true
+
+pretrain_resume: false
+pretrain_initialize_from_epoch: 0
+
+image_size: 224
+image_crop: 224
+mask_patch_size: 16
+model_patch_size: 16
+image_masking_ratio: 0.5
+
+data_dir: ./data/NFL
+image_data_dir: ./data/NFL/images
+
+output_dir: ./output_dir/nfl_pretrain
+experiment_name: nfl_pretrain
+
+test_ratio: 0.01
+
+train_batch_size: 128
+eval_batch_size: 64
+test_batch_size: 64
+
+scheduler:
+  num_epochs: 20
+  warmup_epochs: 5
+
+optimizer:
+  learning_rate: 0.0001
+  weight_decay: 0.02
+  clip_value: 4.0
+
+# loss weights
+lambda_mim: 1.0
+lambda_mlm: 1.0
+lambda_mfm: 0.01
+lambda_mmm: 1.0
+
+# multimodal fusion encoder
+mm_encoder_trainable: true
+mm_hidden_dim: 2048
+mm_output_dim: 2048
+
+# simsiam pretraining projector and predictor
+projection_type: SimSiam
+predictor_hidden_dim: 512
+predictor_out_dim: 2048
+
+# unimodal encoders projection dim
+projection_dim: 768
+
+# text encoder
+tokenizer_name_or_path: bert-base-uncased
+text_encoder_name: bert-base-uncased
+max_token_length: 512
+text_encoder_pretrained: true
+text_encoder_trainable: true
+text_embedding_dim: 768
+mlm_probability: 0.15
+
+# image encoder
+image_encoder_name: google/vit-base-patch16-224
+image_encoder_pretrained: true
+image_encoder_trainable: true
+image_embedding_dim: 768
+
+# tabular encoder
+tabular_encoder_name: tabnet
+tabular_encoder_trainable: true
+tabular_output_dim: 768
+tabular_embedding_dim: 64
+tabular_pretraining_ratio: 0.15
+tabular_cat_emb_dim: 3
+tabular_mask_type: sparsemax
+tabular_n_d: 64
+tabular_n_a: 64
+
+# time series encoder
+timeseries_input_dim: 76
+timeseries_dim_feedforward: 256
+timeseries_max_seq_len: 48
+timeseries_layers: 3
+timeseries_n_heads: 4
+timeseries_dropout: 0.1
+timeseries_embedding_dim: 76
+timeseries_activation: gelu
+timeseries_encoder_trainable: true
+timeseries_masking_ratio: 0.15
+timeseries_mean_mask_length: 3
+timeseries_mask_mode: separate
+timeseries_mask_distribution: geometric
+impute_strategy: zero
+start_time: zero
+timestep: 1.0
+
+# data parallelism
+multiprocessing_distributed: true
+dist_backend: nccl
+ngpus_per_node: 8
+world_size: 1
+workers: 16
